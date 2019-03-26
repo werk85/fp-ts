@@ -4,23 +4,12 @@ nav_order: 78
 parent: Modules
 ---
 
-# Overview
-
-The `Setoid` type class represents types which support decidable equality.
-
-Instances must satisfy the following laws:
-
-1. Reflexivity: `S.equals(a, a) === true`
-2. Symmetry: `S.equals(a, b) === S.equals(b, a)`
-3. Transitivity: if `S.equals(a, b) === true` and `S.equals(b, c) === true`, then `S.equals(a, c) === true`
-
-See [Getting started with fp-ts: Setoid](https://dev.to/gcanti/getting-started-with-fp-ts-setoid-39f3)
-
 ---
 
 <h2 class="text-delta">Table of contents</h2>
 
 - [Setoid (interface)](#setoid-interface)
+- [setoidAll (constant)](#setoidall-constant)
 - [setoidBoolean (constant)](#setoidboolean-constant)
 - [setoidDate (constant)](#setoiddate-constant)
 - [setoidNumber (constant)](#setoidnumber-constant)
@@ -28,6 +17,7 @@ See [Getting started with fp-ts: Setoid](https://dev.to/gcanti/getting-started-w
 - [contramap (function)](#contramap-function)
 - [fromEquals (function)](#fromequals-function)
 - [getArraySetoid (function)](#getarraysetoid-function)
+- [getNullableSetoid (function)](#getnullablesetoid-function)
 - [~~getProductSetoid~~ (function)](#getproductsetoid-function)
 - [~~getRecordSetoid~~ (function)](#getrecordsetoid-function)
 - [getStructSetoid (function)](#getstructsetoid-function)
@@ -47,6 +37,16 @@ export interface Setoid<A> {
 ```
 
 Added in v1.0.0
+
+# setoidAll (constant)
+
+**Signature**
+
+```ts
+export const setoidAll: Setoid<any> = ...
+```
+
+Added in v1.16.0
 
 # setoidBoolean (constant)
 
@@ -119,6 +119,16 @@ export const getArraySetoid = <A>(S: Setoid<A>): Setoid<Array<A>> => ...
 ```
 
 Added in v1.0.0
+
+# getNullableSetoid (function)
+
+**Signature**
+
+```ts
+export const getNullableSetoid = <A>(S: Setoid<A>): Setoid<A | undefined | null> => ...
+```
+
+Added in v1.16.0
 
 # ~~getProductSetoid~~ (function)
 

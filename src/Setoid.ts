@@ -1,3 +1,5 @@
+import { constTrue } from './function'
+
 /**
  * @file The `Setoid` type class represents types which support decidable equality.
  *
@@ -49,6 +51,13 @@ export const setoidNumber: Setoid<number> = setoidStrict
  * @since 1.0.0
  */
 export const setoidBoolean: Setoid<boolean> = setoidStrict
+
+/**
+ * @since 1.16.0
+ */
+export const getNullableSetoid = <A>(S: Setoid<A>): Setoid<A | undefined | null> => {
+  return fromEquals((x, y) => (x == null ? (y == null ? true : false) : y == null ? false : S.equals(x, y)))
+}
 
 /**
  * @since 1.0.0
@@ -126,3 +135,10 @@ export const contramap = <A, B>(f: (b: B) => A, fa: Setoid<A>): Setoid<B> => {
  * @since 1.4.0
  */
 export const setoidDate: Setoid<Date> = contramap(date => date.valueOf(), setoidNumber)
+
+/**
+ * @since 1.16.0
+ */
+export const setoidAll: Setoid<any> = {
+  equals: constTrue
+}

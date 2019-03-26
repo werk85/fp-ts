@@ -8,7 +8,8 @@ import {
   setoidString,
   fromEquals,
   getTupleSetoid,
-  setoidBoolean
+  setoidBoolean,
+  getNullableSetoid
 } from '../src/Setoid'
 
 describe('Setoid', () => {
@@ -39,6 +40,20 @@ describe('Setoid', () => {
     assert.strictEqual(nbCall, 0)
     S1.equals(a1, a2)
     assert.strictEqual(nbCall, 1)
+  })
+
+  it('getNullableSetoid', () => {
+    const S = getNullableSetoid(setoidString)
+    assert.strictEqual(S.equals(undefined, undefined), true)
+    assert.strictEqual(S.equals(undefined, null), true)
+    assert.strictEqual(S.equals(null, undefined), true)
+    assert.strictEqual(S.equals(null, null), true)
+    assert.strictEqual(S.equals('a', null), false)
+    assert.strictEqual(S.equals('a', undefined), false)
+    assert.strictEqual(S.equals(undefined, 'a'), false)
+    assert.strictEqual(S.equals(null, 'a'), false)
+    assert.strictEqual(S.equals('a', 'a'), true)
+    assert.strictEqual(S.equals('a', 'b'), false)
   })
 
   it('getRecordSetoid', () => {
